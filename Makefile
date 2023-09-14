@@ -8,3 +8,11 @@ local-start:
 
 deploy-start:
 	 docker-compose -f ./docker/deploy/docker-compose.yaml --env-file .env up -d --build
+
+
+ddd:
+	docker build -t vladimirbodrin/currency_converter:1 -f docker/deploy/Dockerfile .
+
+
+ddddd:
+	docker run vladimirbodrin/currency_converter:1

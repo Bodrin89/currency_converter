@@ -11,9 +11,7 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2
       - name: docker build
-#        run: docker build -t vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
-#        docker build -t your-image-name -f /path/to/your/Dockerfile /path/to/context
-        run: docker build -t vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID -f docker/deploy/Dockerfile ../../
+        run: docker build -t vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID -f docker/deploy/Dockerfile .
       - name: docker_login
         run: echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: docker push

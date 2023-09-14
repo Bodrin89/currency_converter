@@ -30,3 +30,5 @@ ENV VIRTUAL_ENV=/code/.venv \
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY ../.. .
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8086", "--reload"]
