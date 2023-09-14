@@ -4,8 +4,9 @@ version : '3.9'
 services:
 
   api:
-#    image: vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID
-    image: vladimirbodrin/currency_converter:master-6189353548
+    image: vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    env_file:
+      - .env
     ports:
       - '8086:8086'
 
