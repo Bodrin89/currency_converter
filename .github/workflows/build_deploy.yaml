@@ -21,17 +21,15 @@ jobs:
 #    needs: build_and_push
     steps:
 
-      - name: Copy on server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERV_HOST }}
-          username: ${{ secrets.SERV_USERNAME }}
-          password: ${{ secrets.SERV_PASSWORD }}
-
-          run: mkdir currency_converter
-          source: docker/*
-          target: currency_converter
-          strip_components: 1
+#      - name: Copy on server
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.SERV_HOST }}
+#          username: ${{ secrets.SERV_USERNAME }}
+#          password: ${{ secrets.SERV_PASSWORD }}
+#          source: docker/*
+#          target: currency_converter
+#          strip_components: 1
       - name: render docker-compose
         run: |
           mkdir currency_converter
