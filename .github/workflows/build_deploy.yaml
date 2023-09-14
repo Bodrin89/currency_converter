@@ -20,16 +20,30 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push
     steps:
+#      - name: Copy on server
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.SERV_HOST }}
+#          username: ${{ secrets.SERV_USERNAME }}
+#          password: ${{ secrets.SERV_PASSWORD }}
+#          source: docker/deploy/docker-compose.yaml
+#          target: currency_converter
+#          strip_components: 2
+#      - name: render docker-compose
+#        run: |
+#          mkdir docker-currency_converter
+#          cat docker/deploy/docker-compose.yaml | envsubst > currency_converter/docker-compose.yaml
+#      - name: Copy docker-compose
+#        uses: appleboy/scp-action@master
+#        with:
+#          host: ${{ secrets.SERV_HOST }}
+#          username: ${{ secrets.SERV_USERNAME }}
+#          password: ${{ secrets.SERV_PASSWORD }}
+#          source: currency_converter/docker-compose.yaml
+#          target: currency_converter
+#          strip_components: 1
       - name: Copy on server
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SERV_HOST }}
-          username: ${{ secrets.SERV_USERNAME }}
-          password: ${{ secrets.SERV_PASSWORD }}
-          source: docker/deploy/docker-compose.yaml
-          target: currency_converter
-          strip_components: 2
-      - name: render docker-compose
+        uses: actions/checkout@v2
         run: |
           mkdir docker-currency_converter
           cat docker/deploy/docker-compose.yaml | envsubst > currency_converter/docker-compose.yaml
@@ -42,6 +56,7 @@ jobs:
           source: currency_converter/docker-compose.yaml
           target: currency_converter
           strip_components: 1
+
       - name: Run compose
         uses: appleboy/ssh-action@master
         with:
