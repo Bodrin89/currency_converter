@@ -4,19 +4,8 @@ version : '3.9'
 services:
 
   api:
-    container_name: api
-    build:
-      dockerfile: docker/deploy/Dockerfile
-      context: ../..
-    env_file:
-      - ../../.env
+#    image: vladimirbodrin/currency_converter:$GITHUB_REF_NAME-$GITHUB_RUN_ID
+    image: vladimirbodrin/currency_converter:master-6189353548
     ports:
       - '8086:8086'
-    command: [uvicorn, src.main:app, --host, 0.0.0.0, --port, '8086', --reload]
-    networks:
-      - my_network
-
-networks:
-  my_network:
-    driver: bridge
 
