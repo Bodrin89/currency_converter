@@ -1,0 +1,48 @@
+---
+version : '3.9'
+
+services:
+  db:
+    container_name: Forkway_db
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_HOST: ${POSTGRES_HOST}
+    ports:
+      - ${POSTGRES_PORT}:5432
+    volumes:
+      - Forkway_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}
+      timeout: 3s
+      retries: 10
+      interval: 3s
+    networks:
+      - forkway_network
+
+  api:
+    container_name: api
+    build:
+      dockerfile: docker/local/Dockerfile
+      context: ../../
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ../../.env
+    ports:
+      - 8087:8087
+    volumes:
+      - ../../:/code
+    command: [uvicorn, src.main:app, --host, 0.0.0.0, --port, '8087', --reload]
+    networks:
+      - forkway_network
+
+networks:
+  forkway_network:
+    driver: bridge
+
+volumes :
+  Forkway_pg_data:
