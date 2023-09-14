@@ -31,6 +31,7 @@ jobs:
 #          target: currency_converter
 #          strip_components: 1
       - name: render docker-compose
+        uses: actions/checkout@v2
         run: |
           mkdir currency_converter
           cat docker/deploy/docker-compose.yaml | envsubst > currency_converter/docker-compose.yaml
