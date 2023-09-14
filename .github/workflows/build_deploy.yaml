@@ -20,10 +20,11 @@ jobs:
     runs-on: ubuntu-latest
 #    needs: build_and_push
     steps:
+#      - name: render docker-compose1
+#          run: |
+#            mkdir docker-currency_converter
       - name: Copy on server
         uses: appleboy/scp-action@master
-        run: |
-          mkdir docker-currency_converter
         with:
           host: ${{ secrets.SERV_HOST }}
           username: ${{ secrets.SERV_USERNAME }}
@@ -33,7 +34,7 @@ jobs:
           strip_components: 1
       - name: render docker-compose
         run: |
-          mkdir docker-currency_converter
+          mkdir currency_converter
           cat docker/deploy/docker-compose.yaml | envsubst > currency_converter/docker-compose.yaml
       - name: Copy docker-compose
         uses: appleboy/scp-action@master
