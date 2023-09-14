@@ -8,15 +8,20 @@ from src.simbols import symbols
 
 
 class ConverterService:
+    # def __init__(self, currency_from, currency_to, value):
+    #     self.currency_from = currency_from
+    #     self.currency_to = currency_to
+    #     self.value = value
 
     @classmethod
     async def convert_currency(cls, currency_from: str, currency_to: str, value: int) -> dict[str: int] | Exception:
         """Конвертация валют"""
-        if not symbols.get(currency_from):
+        if not symbols.get(currency_from.upper()):
+            print(currency_from.upper())
             return {'message': f'валюта {currency_from} не найдена'}
 
         if not symbols.get(currency_to):
-            return {'message': f'валюта {currency_to} не найдена'}
+            return {'message': f'валюта {currency_to.upper()} не найдена'}
 
         try:
             response = await cls.__get_exchange(currency_from, currency_to)
