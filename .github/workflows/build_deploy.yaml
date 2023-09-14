@@ -30,8 +30,9 @@ jobs:
 #          source: docker/*
 #          target: currency_converter
 #          strip_components: 1
-      - name: render docker-compose
+      - name: clone code
         uses: actions/checkout@v2
+      - name: render docker-compose
         run: |
           mkdir currency_converter
           cat docker/deploy/docker-compose.yaml | envsubst > currency_converter/docker-compose.yaml
