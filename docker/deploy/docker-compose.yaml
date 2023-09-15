@@ -9,4 +9,3 @@ services:
       - .env
     ports:
       - '8086:8086'
-

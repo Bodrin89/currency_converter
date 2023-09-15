@@ -2,8 +2,8 @@ import pytest
 import requests
 
 from src.api.services import API_KEY
-from src.config import BASE_CURRENCY, URL
 from src.api.services.converter_service import ConverterService
+from src.config import BASE_CURRENCY, URL
 
 param_1 = {'from_': 'USD', 'to': 'RuB', 'value': 1}
 param_2 = {'from_': 'UsD', 'to': 'RUB', 'value': 2}
@@ -36,6 +36,7 @@ class TestConverterService:
             assert response.json() == {'status_code': 200, 'result': '0 USD = 0.0 RUB'}
         if params == param_4:
             assert response.status_code == 422
+
 
     def test_get_exchange(self):
         params = {'base': BASE_CURRENCY, 'symbols': 'USD, RUB'}

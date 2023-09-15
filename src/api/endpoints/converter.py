@@ -1,5 +1,7 @@
-from fastapi import APIRouter, Query
 from typing import Annotated
+
+from fastapi import APIRouter, Query
+
 from src.api.services.converter_service import ConverterService
 
 router_api = APIRouter(prefix='/api', tags=['converter'])
