@@ -29,6 +29,7 @@ class ConverterService:
             currency_2 = data.get('rates')[self.currency_to]
             result = currency_2 * self.value / currency_1
             round_res = math.floor(result * 1000) / 1000
+
             return {'status_code': response.status_code,
                     'result': f'{self.value} {self.currency_from} = {round_res} {self.currency_to}'}
 
